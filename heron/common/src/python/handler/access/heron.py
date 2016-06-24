@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
-
 import tornado.httpclient
 import tornado.gen
 from tornado.options import options
@@ -352,7 +350,6 @@ def get_metrics(cluster, environment, topology, timerange, query, role=None):
       create_url(METRICS_QUERY_URL_FMT), params
   )
 
-  logging.info("get_metrics %s" % (request_url))
   raise tornado.gen.Return((yield fetch_url_as_json(request_url)))
 
 
