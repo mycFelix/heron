@@ -26,7 +26,7 @@ import datetime
 
 import metrics
 from heron.ui.src.python.handlers import base
-from heron.common.src.python.handler import access
+import heron.common.src.python.handler.access as access
 from heron.ui.src.python.handlers import common
 
 class TopologyExceptionSummaryHandler(base.BaseHandler):

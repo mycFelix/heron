@@ -24,7 +24,7 @@ import tornado.gen
 import urllib2
 from datetime import datetime
 
-from heron.common.src.python.handler import access
+import heron.common.src.python.handler.access as access
 import base
 import common
 from common.graph import TopologyDAG
