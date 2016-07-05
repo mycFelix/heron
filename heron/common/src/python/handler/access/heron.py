@@ -159,6 +159,7 @@ def get_execution_state(cluster, environ, topology, role=None):
     params['role'] = role
   request_url = tornado.httputil.url_concat(
     create_url(EXECUTION_STATE_URL_FMT), params)
+
   raise tornado.gen.Return((yield fetch_url_as_json(request_url)))
 
 
