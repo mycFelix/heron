@@ -15,7 +15,7 @@
 import heron.explorer.src.python.args as args
 from collections import defaultdict
 from heron.common.src.python.color import Log
-from heron.explorer.src.python.utils import get_logical_plan, get_topology_info
+from heron.common.src.python.utils import get_logical_plan, get_topology_info
 from tabulate import tabulate
 
 

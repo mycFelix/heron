@@ -18,14 +18,15 @@ import heron.cli.src.python.args as args
 import heron.cli.src.python.execute as execute
 import heron.cli.src.python.jars as jars
 import heron.cli.src.python.opts as opts
-import heron.cli.src.python.utils as utils
+import heron.common.src.python.utils as utils
+
 
 def create_parser(subparsers):
   parser = subparsers.add_parser(
       'deactivate',
       help='Deactivate a topology',
-      usage = "%(prog)s [options] cluster/[role]/[env] topology-name",
-      add_help = False)
+      usage="%(prog)s [options] cluster/[role]/[env] topology-name",
+      add_help=False)
 
   args.add_titles(parser)
   args.add_cluster_role_env(parser)
@@ -36,6 +37,7 @@ def create_parser(subparsers):
 
   parser.set_defaults(subcommand='deactivate')
   return parser
+
 
 def run(command, parser, cl_args, unknown_args):
 
@@ -64,7 +66,7 @@ def run(command, parser, cl_args, unknown_args):
         'com.twitter.heron.scheduler.RuntimeManagerMain',
         lib_jars,
         extra_jars=[],
-        args= new_args
+        args=new_args
     )
 
   except Exception as ex:

@@ -31,13 +31,14 @@ import heron.cli.src.python.deactivate as deactivate
 import heron.cli.src.python.kill as kill
 import heron.cli.src.python.restart as restart
 import heron.cli.src.python.submit as submit
-import heron.cli.src.python.utils as utils
+import heron.common.src.python.utils as utils
 import heron.cli.src.python.version as version
 
-help_epilog = '''Getting more help: 
+help_epilog = '''Getting more help:
   heron help <command> Prints help and options for <command>
 
 For detailed documentation, go to http://heronstreaming.io'''
+
 
 class _HelpAction(argparse._HelpAction):
   def __call__(self, parser, namespace, values, option_string=None):
@@ -57,6 +58,7 @@ class _HelpAction(argparse._HelpAction):
         print(subparser.format_help())
         return
 
+
 class SubcommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
   def _format_action(self, action):
     parts = super(argparse.RawDescriptionHelpFormatter, self)._format_action(action)
@@ -70,14 +72,14 @@ class SubcommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
 ################################################################################
 def create_parser():
   parser = argparse.ArgumentParser(
-      prog = 'heron',
-      epilog = help_epilog,
+      prog='heron',
+      epilog=help_epilog,
       formatter_class=SubcommandHelpFormatter,
-      add_help = False)
+      add_help=False)
 
   subparsers = parser.add_subparsers(
-      title = "Available commands", 
-      metavar = '<command> <options>')
+      title="Available commands",
+      metavar='<command> <options>')
 
   activate.create_parser(subparsers)
   deactivate.create_parser(subparsers)
@@ -88,6 +90,7 @@ def create_parser():
   version.create_parser(subparsers)
 
   return parser
+
 
 ################################################################################
 # Run the command
@@ -104,7 +107,7 @@ def run(command, parser, command_args, unknown_args):
 
   elif command == 'restart':
     return restart.run(command, parser, command_args, unknown_args)
-  
+
   elif command == 'submit':
     return submit.run(command, parser, command_args, unknown_args)
 
@@ -116,9 +119,11 @@ def run(command, parser, command_args, unknown_args):
 
   return 1
 
+
 def cleanup(files):
   for file in files:
     shutil.rmtree(os.path.dirname(file))
+
 
 ################################################################################
 # Check whether the environment variables are set
@@ -129,6 +134,7 @@ def check_environment():
 
   if not utils.check_release_file_exists():
     sys.exit(1)
+
 
 ################################################################################
 # Extract all the common args for all commands
@@ -165,6 +171,7 @@ def extract_common_args(command, parser, cl_args):
   cl_args.update(new_cl_args)
   return cl_args
 
+
 ################################################################################
 # Run the command
 ################################################################################
@@ -173,7 +180,7 @@ def main():
   # verify if the environment variables are correctly set
   check_environment()
 
-  # create the argument parser 
+  # create the argument parser
   parser = create_parser()
 
   # if no argument is provided, print help and exit
@@ -189,7 +196,7 @@ def main():
   command_line_args = vars(args)
 
   try:
-    if command_line_args['verbose']: 
+    if command_line_args['verbose']:
       opts.set_verbose()
     if command_line_args['trace_execution']:
       opts.set_trace_execution()
@@ -216,7 +223,7 @@ def main():
   if opts.verbose():
     print command_line_args
 
-  start = time.time() 
+  start = time.time()
   retcode = run(command, parser, command_line_args, unknown_args)
   end = time.time()
 
@@ -224,7 +231,7 @@ def main():
     sys.stdout.flush()
     Log.info('Elapsed time: %.3fs.' % (end-start))
 
-  return 0 if retcode == True else 1
+  return 0 if retcode else 1
 
 if __name__ == "__main__":
   sys.exit(main())

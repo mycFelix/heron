@@ -15,9 +15,9 @@
 import heron.explorer.src.python.args as args
 from heron.common.src.python.color import Log
 from tabulate import tabulate
-from heron.explorer.src.python.utils import get_cluster_topologies
-from heron.explorer.src.python.utils import get_cluster_role_topologies
-from heron.explorer.src.python.utils import get_cluster_role_env_topologies
+from heron.common.src.python.utils import get_cluster_topologies
+from heron.common.src.python.utils import get_cluster_role_topologies
+from heron.common.src.python.utils import get_cluster_role_env_topologies
 
 
 def create_parser(subparsers):

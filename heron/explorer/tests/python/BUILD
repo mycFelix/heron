@@ -5,6 +5,7 @@ pex_test(
     srcs = ["explorer_unittest.py"],
     deps = [
         "//heron/explorer/src/python:heron-explorer-lib",
+        "//heron/common/src/python:cli-util",
     ],
     reqs = [
         "tabulate==0.7.5",

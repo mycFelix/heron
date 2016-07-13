@@ -18,9 +18,10 @@ import subprocess
 import tarfile
 import tempfile
 
-import heron.cli.src.python.opts  as opts
-import heron.cli.src.python.utils as utils
-import heron.cli.src.python.jars  as jars
+import heron.cli.src.python.opts as opts
+import heron.common.src.python.utils as utils
+import heron.cli.src.python.jars as jars
+
 
 ################################################################################
 # Execute a heron class given the args and the jars needed for class path
@@ -51,6 +52,7 @@ def heron_class(class_name, lib_jars, extra_jars=[], args=[], javaDefines=[]):
     if status != 0:
       err_str = "User main failed with status %d. Bailing out..." % status
       raise RuntimeError(err_str)
+
 
 def heron_tar(class_name, topology_tar, arguments, tmpdir_root, javaDefines):
   # Extract tar to a tmp folder.

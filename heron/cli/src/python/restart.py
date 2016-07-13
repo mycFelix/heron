@@ -17,14 +17,15 @@ from heron.common.src.python.color import Log
 import heron.cli.src.python.args as args
 import heron.cli.src.python.execute as execute
 import heron.cli.src.python.jars as jars
-import heron.cli.src.python.utils as utils
+import heron.common.src.python.utils as utils
+
 
 def create_parser(subparsers):
   parser = subparsers.add_parser(
       'restart',
       help='Restart a topology',
-      usage = "%(prog)s [options] cluster/[role]/[env] topology-name [container-id]",
-      add_help = False)
+      usage="%(prog)s [options] cluster/[role]/[env] topology-name [container-id]",
+      add_help=False)
 
   args.add_titles(parser)
   args.add_cluster_role_env(parser)
@@ -42,6 +43,7 @@ def create_parser(subparsers):
 
   parser.set_defaults(subcommand='restart')
   return parser
+
 
 def run(command, parser, cl_args, unknown_args):
 
@@ -69,7 +71,7 @@ def run(command, parser, cl_args, unknown_args):
         'com.twitter.heron.scheduler.RuntimeManagerMain',
         lib_jars,
         extra_jars=[],
-        args= new_args
+        args=new_args
     )
 
   except Exception as ex:

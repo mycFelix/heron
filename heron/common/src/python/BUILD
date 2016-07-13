@@ -16,3 +16,12 @@ pex_library(
   srcs = glob(['**/handler/access/*.py']),
   deps = [],
 )
+
+pex_library(
+  name = 'cli-util',
+  srcs = glob(['utils.py']),
+  deps = [],
+  reqs = [
+      "tornado==4.0.2"
+  ]
+)

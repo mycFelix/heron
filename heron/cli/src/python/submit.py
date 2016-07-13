@@ -15,7 +15,6 @@
 import glob
 import os
 import shutil
-import sys
 import tempfile
 
 from heron.common.src.python.color import Log
@@ -25,7 +24,8 @@ import heron.cli.src.python.args as args
 import heron.cli.src.python.execute as execute
 import heron.cli.src.python.jars as jars
 import heron.cli.src.python.opts as opts
-import heron.cli.src.python.utils as utils
+import heron.common.src.python.utils as utils
+
 
 ################################################################################
 # Create a subparser for the submit command
@@ -34,9 +34,9 @@ def create_parser(subparsers):
   parser = subparsers.add_parser(
       'submit',
       help='Submit a topology',
-      usage = "%(prog)s [options] cluster/[role]/[env] " + \
+      usage="%(prog)s [options] cluster/[role]/[env] " +
               "topology-file-name topology-class-name [topology-args]",
-      add_help = False
+      add_help=False
   )
 
   args.add_titles(parser)
@@ -50,6 +50,7 @@ def create_parser(subparsers):
 
   parser.set_defaults(subcommand='submit')
   return parser
+
 
 ################################################################################
 # Launch a topology given topology jar, its definition file and configurations
@@ -95,9 +96,10 @@ def launch_a_topology(cl_args, tmp_dir, topology_file, topology_defn_file):
       'com.twitter.heron.scheduler.SubmitterMain',
       lib_jars,
       extra_jars=[],
-      args = args,
-      javaDefines = []
+      args=args,
+      javaDefines=[]
   )
+
 
 ################################################################################
 # Launch topologies
@@ -136,6 +138,7 @@ def launch_topologies(cl_args, topology_file, tmp_dir):
   except:
     raise
 
+
 ################################################################################
 # We use the packer to make a package for the jar and dump it
 # to a well-known location. We then run the main method of class
@@ -155,24 +158,25 @@ def submit_fatjar(cl_args, unknown_args, tmp_dir):
     execute.heron_class(
       cl_args['topology-class-name'],
       utils.get_heron_libs(jars.topology_jars()),
-      extra_jars = [topology_file],
-      args = tuple(unknown_args),
-      javaDefines = cl_args['topology_main_jvm_property'])
+      extra_jars=[topology_file],
+      args=tuple(unknown_args),
+      javaDefines=cl_args['topology_main_jvm_property'])
 
-  except Exception as ex:
+  except Exception:
     Log.error("Unable to execute topology main class")
     return False
 
   try:
     launch_topologies(cl_args, topology_file, tmp_dir)
 
-  except Exception as ex:
+  except Exception:
     return False
 
   finally:
     shutil.rmtree(tmp_dir)
 
   return True
+
 
 ################################################################################
 # Extract and execute the java files inside the tar and then add topology
@@ -203,13 +207,14 @@ def submit_tar(cl_args, unknown_args, tmp_dir):
   try:
     launch_topologies(cl_args, topology_file, tmp_dir)
 
-  except Exception as ex:
+  except Exception:
     return False
 
   finally:
     shutil.rmtree(tmp_dir)
 
   return True
+
 
 ################################################################################
 #  Submits the topology to the scheduler

@@ -14,15 +14,17 @@
 
 import os
 
-import heron.cli.src.python.utils as utils
+import heron.common.src.python.utils as utils
+
 
 def add_titles(parser):
   parser._positionals.title = "Required arguments"
-  parser._optionals.title = "Optional arguments"  
+  parser._optionals.title = "Optional arguments"
   return parser
 
+
 def insert_bool(param, command_args):
-  index = 0 
+  index = 0
   found = False
   for lelem in command_args:
     if lelem == '--' and not found:
@@ -30,16 +32,18 @@ def insert_bool(param, command_args):
     if lelem == param:
       found = True
       break
-    index = index + 1   
+    index = index + 1
 
   if found:
     command_args.insert(index + 1, 'True')
-  return command_args 
+  return command_args
+
 
 def insert_bool_values(command_line_args):
   args1 = insert_bool('--verbose', command_line_args)
   args2 = insert_bool('--deploy-deactivated', args1)
   return args2
+
 
 def add_verbose(parser):
   parser.add_argument(
@@ -48,6 +52,7 @@ def add_verbose(parser):
       default=False)
   return parser
 
+
 def add_trace_execution(parser):
   parser.add_argument(
       '--trace-execution',
@@ -55,11 +60,13 @@ def add_trace_execution(parser):
       default=False)
   return parser
 
+
 def add_topology(parser):
   parser.add_argument(
       'topology-name',
       help='Name of the topology')
   return parser
+
 
 def add_topology_file(parser):
   parser.add_argument(
@@ -67,11 +74,13 @@ def add_topology_file(parser):
       help='Topology jar/tar/zip file')
   return parser
 
+
 def add_topology_class(parser):
   parser.add_argument(
       'topology-class-name',
       help='Topology class name')
   return parser
+
 
 def add_cluster_role_env(parser):
   parser.add_argument(
@@ -79,6 +88,7 @@ def add_cluster_role_env(parser):
        help='Cluster, role, and environment to run topology'
   )
   return parser
+
 
 def add_config(parser):
 
@@ -97,6 +107,7 @@ def add_config(parser):
       default=[])
   return parser
 
+
 def add_system_property(parser):
   parser.add_argument(
       '--topology-main-jvm-property',
@@ -105,6 +116,7 @@ def add_system_property(parser):
       default=[])
 
   return parser
+
 
 def add_deactive_deploy(parser):
   parser.add_argument(
