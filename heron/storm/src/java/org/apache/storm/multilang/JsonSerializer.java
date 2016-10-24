@@ -47,10 +47,10 @@ public class JsonSerializer implements ISerializer {
   private transient BufferedWriter processIn;
   private transient BufferedReader processOut;
 
-  public void initialize(OutputStream processIn, InputStream processOut) {
+  public void initialize(OutputStream osProcessIn, InputStream isProcessOut) {
     try {
-      this.processIn = new BufferedWriter(new OutputStreamWriter(processIn, DEFAULT_CHARSET));
-      this.processOut = new BufferedReader(new InputStreamReader(processOut, DEFAULT_CHARSET));
+      this.processIn = new BufferedWriter(new OutputStreamWriter(osProcessIn, DEFAULT_CHARSET));
+      this.processOut = new BufferedReader(new InputStreamReader(isProcessOut, DEFAULT_CHARSET));
     } catch (UnsupportedEncodingException e) {
       throw new RuntimeException(e);
     }

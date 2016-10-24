@@ -132,11 +132,11 @@ public class ShellMsg {
     this.tuple = tuple;
   }
 
-  public void addTuple(Object tuple) {
+  public void addTuple(Object tupleObject) {
     if (this.tuple == null) {
       this.tuple = new ArrayList<Object>();
     }
-    this.tuple.add(tuple);
+    this.tuple.add(tupleObject);
   }
 
   public boolean areTaskIdsNeeded() {

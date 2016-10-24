@@ -81,8 +81,8 @@ public class ShellBolt implements IBolt {
 
   public static final String HEARTBEAT_STREAM_ID = "__heartbeat";
   public static final Logger LOG = LoggerFactory.getLogger(ShellBolt.class);
-  OutputCollector collector;
-  Map<String, Tuple> inputs = new ConcurrentHashMap<>();
+  private OutputCollector collector;
+  private Map<String, Tuple> inputs = new ConcurrentHashMap<>();
 
   private String[] command;
   private Map<String, String> env = new HashMap<>();
@@ -110,8 +110,8 @@ public class ShellBolt implements IBolt {
     command = commands;
   }
 
-  public ShellBolt setEnv(Map<String, String> env) {
-    this.env = env;
+  public ShellBolt setEnv(Map<String, String> envMap) {
+    this.env = envMap;
     return this;
   }
 
@@ -304,16 +304,16 @@ public class ShellBolt implements IBolt {
     return lastHeartbeatTimestamp.get();
   }
 
-  private void die(Throwable exception) {
+  private void die(Throwable throwableException) {
     String processInfo = process.getProcessInfoString() + process.getProcessTerminationInfoString();
-    exception = new RuntimeException(processInfo, exception);
+    exception = new RuntimeException(processInfo, throwableException);
     String message = String.format("Halting process: ShellBolt died. Command: %s, ProcessInfo %s",
         Arrays.toString(command),
         processInfo);
     LOG.error(message, exception);
     collector.reportError(exception);
-    if (running ||
-        (exception instanceof Error)) { //don't exit if not running, unless it is an Error
+    if (running
+        || (exception instanceof Error)) { //don't exit if not running, unless it is an Error
       System.exit(11);
     }
   }
@@ -321,7 +321,7 @@ public class ShellBolt implements IBolt {
   private class BoltHeartbeatTimerTask extends TimerTask {
     private ShellBolt bolt;
 
-    public BoltHeartbeatTimerTask(ShellBolt bolt) {
+    BoltHeartbeatTimerTask(ShellBolt bolt) {
       this.bolt = bolt;
     }
 
@@ -347,15 +347,15 @@ public class ShellBolt implements IBolt {
         try {
           ShellMsg shellMsg = process.readShellMsg();
 
-          String command = shellMsg.getCommand();
-          if (command == null) {
+          String shellCommand = shellMsg.getCommand();
+          if (shellCommand == null) {
             throw new IllegalArgumentException("Command not found in bolt message: " + shellMsg);
           }
 
           setHeartbeat();
 
           // We don't need to take care of sync, cause we're always updating heartbeat
-          switch (command) {
+          switch (shellCommand) {
             case "ack":
               handleAck(shellMsg.getId());
               break;
@@ -373,6 +373,8 @@ public class ShellBolt implements IBolt {
               break;
             case "metrics":
               handleMetrics(shellMsg);
+              break;
+            default:
               break;
           }
         } catch (InterruptedException e) {

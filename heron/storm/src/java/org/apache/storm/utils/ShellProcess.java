@@ -102,13 +102,13 @@ public class ShellProcess implements Serializable {
     String serializerClassName = (String) conf.get(Config.TOPOLOGY_MULTILANG_SERIALIZER);
     LOG.info("Storm multilang serializer: " + serializerClassName);
 
-    final ISerializer serializer;
+    ISerializer serializerObject;
     try {
       //create a factory class
       Class klass = Class.forName(serializerClassName);
       //obtain a serializer object
       Object obj = klass.newInstance();
-      serializer = (ISerializer) obj;
+      serializerObject = (ISerializer) obj;
     } catch (ClassNotFoundException e) {
       throw new RuntimeException("Failed to construct multilang serializer from serializer "
           + serializerClassName, e);
@@ -120,7 +120,7 @@ public class ShellProcess implements Serializable {
           + serializerClassName, e);
 
     }
-    return serializer;
+    return serializerObject;
   }
 
   public void destroy() {
