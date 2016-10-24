@@ -246,14 +246,8 @@ public class TopologyContext extends WorkerTopologyContext implements IMetricsCo
     return null;
   }
 
-  /**
-   * Get component's metric from registered metrics by name.
-   * Notice: Normally, one component can only register one metric name once.
-   *         But now registerMetric has a bug(https://issues.apache.org/jira/browse/STORM-254)
-   *         cause the same metric name can register twice.
-   *         So we just return the first metric we meet.
-   */
-  public IMetric getRegisteredMetricByName(String name) {
+  @SuppressWarnings("unchecked")
+  public <T extends IMetric> T getRegisteredMetricByName(String name) {
     return delegate.getRegisterMetricByName(name);
   }
 
