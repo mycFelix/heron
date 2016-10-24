@@ -7,6 +7,10 @@ java_binary(
         "//heron/storm/src/java:storm-compatibility-java",
     ],
     create_executable = 0,
+    resources = [
+                  "resources/splitsentence.py",
+    ],
+
 )
 
 genrule(

@@ -318,7 +318,7 @@ public class Config extends com.twitter.heron.api.Config {
 
 
   public static final String TOPOLOGY_MULTILANG_SERIALIZER = "topology.multilang.serializer";
-  public static final String TOPOLOGY_SHELLBOLT_MAX_PENDING="topology.shellbolt.max.pending";
+  public static final String TOPOLOGY_SHELLBOLT_MAX_PENDING = "topology.shellbolt.max.pending";
   public static final String TOPOLOGY_SUBPROCESS_TIMEOUT_SECS = "topology.subprocess.timeout.secs";
   public static final String SUPERVISOR_WORKER_TIMEOUT_SECS = "supervisor.worker.timeout.secs";
 

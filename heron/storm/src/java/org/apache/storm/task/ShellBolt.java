@@ -72,6 +72,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * ```
  */
 public class ShellBolt implements IBolt {
+    private static final long serialVersionUID = 1640808794096028094L;
+
     public static final String HEARTBEAT_STREAM_ID = "__heartbeat";
     public static final Logger LOG = LoggerFactory.getLogger(ShellBolt.class);
     OutputCollector _collector;
@@ -108,6 +110,7 @@ public class ShellBolt implements IBolt {
         return this;
     }
 
+    @SuppressWarnings("rawtypes")
     public void prepare(Map stormConf, TopologyContext context,
                         final OutputCollector collector) {
         Object maxPending = stormConf.get(Config.TOPOLOGY_SHELLBOLT_MAX_PENDING);
@@ -121,9 +124,9 @@ public class ShellBolt implements IBolt {
         _context = context;
 
         if (stormConf.containsKey(Config.TOPOLOGY_SUBPROCESS_TIMEOUT_SECS)) {
-            workerTimeoutMills = 1000 * Integer.parseInt((String)stormConf.get(Config.TOPOLOGY_SUBPROCESS_TIMEOUT_SECS));
+            workerTimeoutMills = 1000 * Integer.valueOf((Integer)stormConf.get(Config.TOPOLOGY_SUBPROCESS_TIMEOUT_SECS));
         } else {
-            workerTimeoutMills = 1000 * Integer.parseInt((String)stormConf.get(Config.SUPERVISOR_WORKER_TIMEOUT_SECS));
+            workerTimeoutMills = 1000 * Integer.valueOf((Integer)stormConf.get(Config.SUPERVISOR_WORKER_TIMEOUT_SECS));
         }
 
         _process = new ShellProcess(_command);
@@ -374,6 +377,7 @@ public class ShellBolt implements IBolt {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private class BoltWriterRunnable implements Runnable {
         public void run() {
             while (_running) {

@@ -25,4 +25,6 @@ public interface IMetricsRegister {
    * @return The IMetric argument unchanged.
    */
   <T extends IMetric<U>, U> T registerMetric(String name, T metric, int timeBucketSizeInSecs);
+
+  IMetric<?> getRegisterMetricByName(String name);
 }

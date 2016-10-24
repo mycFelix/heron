@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ShellProcess implements Serializable {
+    private static final long serialVersionUID = 5512571641846715395L;
     public static final Logger LOG = LoggerFactory.getLogger(ShellProcess.class);
     public static Logger ShellLogger;
     private Process      _subprocess;
@@ -60,7 +61,7 @@ public class ShellProcess implements Serializable {
         }
     }
 
-
+    @SuppressWarnings("rawtypes")
     public Number launch(Map conf, TopologyContext context) {
         ProcessBuilder builder = new ProcessBuilder(command);
         if (!env.isEmpty()) {
@@ -89,6 +90,7 @@ public class ShellProcess implements Serializable {
         return this.pid;
     }
 
+    @SuppressWarnings("rawtypes")
     private ISerializer getSerializer(Map conf) {
         //get factory class name
         String serializer_className = (String)conf.get(Config.TOPOLOGY_MULTILANG_SERIALIZER);

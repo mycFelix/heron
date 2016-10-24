@@ -45,6 +45,7 @@ public interface ISerializer extends Serializable {
      * @param context topology context
      * @return process pid
      */
+    @SuppressWarnings("rawtypes")
     Number connect(Map conf, TopologyContext context) throws IOException,
             NoOutputException;
 

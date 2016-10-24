@@ -42,8 +42,6 @@ import com.twitter.heron.common.basics.Constants;
 import com.twitter.heron.common.basics.TypeUtils;
 import com.twitter.heron.common.utils.metrics.MetricsCollector;
 
-import static javafx.scene.input.KeyCode.T;
-
 /**
  * A TopologyContext is given to bolts and spouts in their "prepare" and "open"
  * methods, respectively. This object provides information about the component's
@@ -57,6 +55,8 @@ public class TopologyContextImpl extends GeneralTopologyContextImpl implements T
   // List of task hooks to delegate
   private final List<ITaskHook> taskHooks;
 
+  private String sandbox;
+
   public TopologyContextImpl(Map<String, Object> clusterConfig,
                              TopologyAPI.Topology topology,
                              Map<Integer, String> taskToComponentMap,
@@ -65,6 +65,8 @@ public class TopologyContextImpl extends GeneralTopologyContextImpl implements T
     this.metricsCollector = metricsCollector;
     this.myTaskId = myTaskId;
     this.taskData = new HashMap<>();
+
+    sandbox = (String) clusterConfig.get("HERON_SANDBOX_JAVA_HOME");
 
     // Init task hooks
     this.taskHooks = new LinkedList<>();
@@ -310,7 +312,7 @@ public class TopologyContextImpl extends GeneralTopologyContextImpl implements T
   }
 
   @Override
-  public <T extends IMetric<U>, U> T getRegisterMetricByName(String name) {
+  public IMetric<?> getRegisterMetricByName(String name) {
     return metricsCollector.getRegisterMetricByName(name);
   }
 
@@ -322,5 +324,10 @@ public class TopologyContextImpl extends GeneralTopologyContextImpl implements T
   @Override
   public Collection<ITaskHook> getHooks() {
     return taskHooks;
+  }
+
+  @Override
+  public String getCodeDir() {
+    return sandbox;
   }
 }

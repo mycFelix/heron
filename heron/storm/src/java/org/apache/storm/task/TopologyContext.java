@@ -248,7 +248,7 @@ public class TopologyContext extends WorkerTopologyContext implements IMetricsCo
 
   @SuppressWarnings("unchecked")
   public <T extends IMetric> T getRegisteredMetricByName(String name) {
-    return delegate.getRegisterMetricByName(name);
+    return (T) delegate.getRegisterMetricByName(name);
   }
 
   /*

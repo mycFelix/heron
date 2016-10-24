@@ -82,7 +82,8 @@ public class WorkerTopologyContext extends GeneralTopologyContext {
    * in other languages, such as Ruby or Python.
    */
   public String getCodeDir() {
-    throw new RuntimeException("Not supported");
+//    throw new RuntimeException("Not supported");
+    return delegate.getCodeDir();
   }
 
   /**

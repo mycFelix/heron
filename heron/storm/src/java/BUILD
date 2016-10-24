@@ -6,6 +6,9 @@ storm_deps_files = [
     "//heron/simulator/src/java:simulator-java",
     "@com_googlecode_json_simple_json_simple//jar",
     "//third_party/java:kryo",
+    "@org_slf4j_slf4j_api//jar",
+    "@org_slf4j_slf4j_jdk14//jar",
+    "@com_google_guava_guava//jar"
 ]
 
 java_library(
