@@ -77,8 +77,8 @@ public class MetricsCollector implements IMetricsRegister {
     return metric;
   }
 
-  public IMetric getRegisterMetricByName(String name){
-    return metrics.get(name);
+  public <T extends IMetric<U>, U> T getRegisterMetricByName(String name){
+    return (T) metrics.get(name);
   }
 
   public void registerMetricSampleRunnable(

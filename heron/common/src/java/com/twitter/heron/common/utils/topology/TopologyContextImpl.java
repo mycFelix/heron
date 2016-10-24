@@ -42,6 +42,8 @@ import com.twitter.heron.common.basics.Constants;
 import com.twitter.heron.common.basics.TypeUtils;
 import com.twitter.heron.common.utils.metrics.MetricsCollector;
 
+import static javafx.scene.input.KeyCode.T;
+
 /**
  * A TopologyContext is given to bolts and spouts in their "prepare" and "open"
  * methods, respectively. This object provides information about the component's
@@ -308,7 +310,7 @@ public class TopologyContextImpl extends GeneralTopologyContextImpl implements T
   }
 
   @Override
-  public IMetric getRegisterMetricByName(String name) {
+  public <T extends IMetric<U>, U> T getRegisterMetricByName(String name) {
     return metricsCollector.getRegisterMetricByName(name);
   }
 
