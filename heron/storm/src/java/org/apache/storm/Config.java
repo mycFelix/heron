@@ -315,6 +315,15 @@ public class Config extends com.twitter.heron.api.Config {
   public static final String STORMCOMPAT_TOPOLOGY_AUTO_TASK_HOOKS =
       "stormcompat.topology.auto.task.hooks";
 
+
+
+  public static final String TOPOLOGY_MULTILANG_SERIALIZER = "topology.multilang.serializer";
+  public static final String TOPOLOGY_SHELLBOLT_MAX_PENDING="topology.shellbolt.max.pending";
+  public static final String TOPOLOGY_SUBPROCESS_TIMEOUT_SECS = "topology.subprocess.timeout.secs";
+  public static final String SUPERVISOR_WORKER_TIMEOUT_SECS = "supervisor.worker.timeout.secs";
+
+
+
   public static void setDebug(Map<String, Object> conf, boolean isOn) {
     conf.put(Config.TOPOLOGY_DEBUG, isOn);
   }

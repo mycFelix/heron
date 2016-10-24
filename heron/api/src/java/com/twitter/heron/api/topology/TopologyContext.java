@@ -22,6 +22,7 @@ import com.twitter.heron.api.generated.TopologyAPI;
 import com.twitter.heron.api.hooks.ITaskHook;
 import com.twitter.heron.api.metric.CombinedMetric;
 import com.twitter.heron.api.metric.ICombiner;
+import com.twitter.heron.api.metric.IMetric;
 import com.twitter.heron.api.metric.IMetricsRegister;
 import com.twitter.heron.api.metric.IReducer;
 import com.twitter.heron.api.metric.ReducedMetric;
@@ -105,4 +106,6 @@ public interface TopologyContext extends GeneralTopologyContext, IMetricsRegiste
   <T> CombinedMetric<T> registerMetric(String name,
                                        ICombiner<T> combiner,
                                        int timeBucketSizeInSecs);
+
+  <T extends IMetric> T getRegisterMetricByName(String name);
 }

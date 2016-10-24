@@ -308,6 +308,11 @@ public class TopologyContextImpl extends GeneralTopologyContextImpl implements T
   }
 
   @Override
+  public IMetric getRegisterMetricByName(String name) {
+    return metricsCollector.getRegisterMetricByName(name);
+  }
+
+  @Override
   public void addTaskHook(ITaskHook hook) {
     taskHooks.add(hook);
   }
