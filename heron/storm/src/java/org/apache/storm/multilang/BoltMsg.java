@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,49 +31,49 @@ import java.util.List;
  *
  */
 public class BoltMsg {
-    private String id;
-    private String comp;
-    private String stream;
-    private long task;
-    private List<Object> tuple;
+  private String id;
+  private String comp;
+  private String stream;
+  private long task;
+  private List<Object> tuple;
 
-    public String getId() {
-        return id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getComp() {
-        return comp;
-    }
+  public String getComp() {
+    return comp;
+  }
 
-    public void setComp(String comp) {
-        this.comp = comp;
-    }
+  public void setComp(String comp) {
+    this.comp = comp;
+  }
 
-    public String getStream() {
-        return stream;
-    }
+  public String getStream() {
+    return stream;
+  }
 
-    public void setStream(String stream) {
-        this.stream = stream;
-    }
+  public void setStream(String stream) {
+    this.stream = stream;
+  }
 
-    public long getTask() {
-        return task;
-    }
+  public long getTask() {
+    return task;
+  }
 
-    public void setTask(long task) {
-        this.task = task;
-    }
+  public void setTask(long task) {
+    this.task = task;
+  }
 
-    public List<Object> getTuple() {
-        return tuple;
-    }
+  public List<Object> getTuple() {
+    return tuple;
+  }
 
-    public void setTuple(List<Object> tuple) {
-        this.tuple = tuple;
-    }
+  public void setTuple(List<Object> tuple) {
+    this.tuple = tuple;
+  }
 }

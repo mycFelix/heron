@@ -1,16 +1,17 @@
-//  Copyright 2016 Twitter. All rights reserved.
+// Copyright 2016 Twitter. All rights reserved.
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-//  http://www.apache.org/licenses/LICENSE-2.0
+//    http://www.apache.org/licenses/LICENSE-2.0
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package com.twitter.heron.examples;
 
 import java.util.HashMap;
@@ -21,27 +22,23 @@ import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.InvalidTopologyException;
-import org.apache.storm.task.OutputCollector;
+import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.ShellBolt;
+import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.IRichBolt;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.topology.base.BaseBasicBolt;
-import org.apache.storm.topology.base.BaseRichBolt;
+import org.apache.storm.topology.base.BaseRichSpout;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 
-import org.apache.storm.spout.SpoutOutputCollector;
-import org.apache.storm.task.TopologyContext;
-import org.apache.storm.topology.base.BaseRichSpout;
+public final class WordCountShellBoltTopology {
+  private WordCountShellBoltTopology() {
+  }
 
-
-/**
- * Created by Felix on 16/10/24.
- */
-public class WordCountShellBoltTopology {
   public static class SplitSentence extends ShellBolt implements IRichBolt {
     private static final long serialVersionUID = -6200054063827257524L;
 
@@ -62,14 +59,15 @@ public class WordCountShellBoltTopology {
 
   public static class WordCount extends BaseBasicBolt {
     private static final long serialVersionUID = 2606916532020258152L;
-    Map<String, Integer> counts = new HashMap<String, Integer>();
+    private Map<String, Integer> counts = new HashMap<String, Integer>();
 
     @Override
     public void execute(Tuple tuple, BasicOutputCollector collector) {
       String word = tuple.getString(0);
       Integer count = counts.get(word);
-      if (count == null)
+      if (count == null) {
         count = 0;
+      }
       count++;
       counts.put(word, count);
       collector.emit(new Values(word, count));
@@ -175,10 +173,10 @@ public class WordCountShellBoltTopology {
     Config conf = new Config();
     conf.setNumStmgrs(parallelism);
 
-    conf.put(Config.TOPOLOGY_MULTILANG_SERIALIZER,"org.apache.storm.multilang.JsonSerializer");
-    conf.put(Config.TOPOLOGY_SHELLBOLT_MAX_PENDING,100);
-    conf.put(Config.TOPOLOGY_SUBPROCESS_TIMEOUT_SECS,2);
-    conf.put(Config.SUPERVISOR_WORKER_TIMEOUT_SECS,2);
+    conf.put(Config.TOPOLOGY_MULTILANG_SERIALIZER, "org.apache.storm.multilang.JsonSerializer");
+    conf.put(Config.TOPOLOGY_SHELLBOLT_MAX_PENDING, 100);
+    conf.put(Config.TOPOLOGY_SUBPROCESS_TIMEOUT_SECS, 2);
+    conf.put(Config.SUPERVISOR_WORKER_TIMEOUT_SECS, 2);
 
 
     StormSubmitter.submitTopology(args[0], conf, builder.createTopology());
