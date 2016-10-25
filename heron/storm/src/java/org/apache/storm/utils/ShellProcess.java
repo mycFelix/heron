@@ -74,7 +74,8 @@ public class ShellProcess implements Serializable {
       modifyEnvironment(buildEnv);
     }
     String workingPath = System.getProperty("user.dir");
-    builder.directory(new File(System.getProperty("user.dir")));
+    LOG.info("=====>" + workingPath);
+    builder.directory(new File(workingPath));
 
     shellLogger = LoggerFactory.getLogger(context.getThisComponentId());
 

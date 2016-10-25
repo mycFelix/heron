@@ -16,30 +16,16 @@
  * limitations under the License.
  */
 
-package org.apache.storm.generated;
+package org.apache.storm.metric.api.rpc;
 
-public class ShellComponent {
-  private String executionCommand;
-  private String script;
+import org.apache.storm.metric.api.AssignableMetric;
 
-  public ShellComponent(String executionCommand, String script) {
-    this.executionCommand = executionCommand;
-    this.script = script;
+public class AssignableShellMetric extends AssignableMetric implements IShellMetric {
+  public AssignableShellMetric(Object value) {
+    super(value);
   }
 
-  public String getExecutionCommand() {
-    return executionCommand;
-  }
-
-  public void setExecutionCommand(String executionCommand) {
-    this.executionCommand = executionCommand;
-  }
-
-  public String getScript() {
-    return script;
-  }
-
-  public void setScript(String script) {
-    this.script = script;
+  public void updateMetricFromRPC(Object value) {
+    setValue(value);
   }
 }

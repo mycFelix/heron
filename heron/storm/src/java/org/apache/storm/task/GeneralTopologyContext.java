@@ -145,7 +145,7 @@ public class GeneralTopologyContext implements JSONAware {
   */
   @Override
   public String toJSONString() {
-    throw new RuntimeException("toJSONString not implemented");
+    return delegate.toJSONString();
   }
 
   /**

@@ -8,6 +8,7 @@ common_deps_files = \
     heron_java_proto_files() + [
         "//heron/api/src/java:api-java",
         "@org_yaml_snakeyaml//jar",
+        "@com_googlecode_json_simple_json_simple//jar",
     ]
 
 java_library(

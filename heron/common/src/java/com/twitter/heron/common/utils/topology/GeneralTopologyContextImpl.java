@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.json.simple.JSONValue;
+
 import com.twitter.heron.api.Config;
 import com.twitter.heron.api.generated.TopologyAPI;
 import com.twitter.heron.api.topology.GeneralTopologyContext;
@@ -271,6 +273,14 @@ public class GeneralTopologyContextImpl implements GeneralTopologyContext {
 
   private boolean areStreamsEqual(TopologyAPI.StreamId a, TopologyAPI.StreamId b) {
     return a.getId().equals(b.getId()) && a.getComponentName().equals(b.getComponentName());
+  }
+
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  @Override
+  public String toJSONString() {
+    Map obj = new HashMap();
+    obj.put("task->component", taskToComponentMap);
+    return JSONValue.toJSONString(obj);
   }
 }
 

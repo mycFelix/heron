@@ -108,4 +108,6 @@ public interface GeneralTopologyContext {
     */
 
   int maxTopologyMessageTimeout();
+
+  String toJSONString();
 }

@@ -18,6 +18,7 @@
 
 package org.apache.storm.task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -287,13 +288,13 @@ public class ShellBolt implements IBolt {
 
     //call updateMetricFromRPC with params
     Object paramsObj = shellMsg.getMetricParams();
-    try {
-      iShellMetric.updateMetricFromRPC(paramsObj);
-    } catch (RuntimeException re) {
-      throw re;
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+//    try {
+    iShellMetric.updateMetricFromRPC(paramsObj);
+//    } catch (RuntimeException re) {
+//      throw re;
+//    } catch (Exception e) {
+//      throw new RuntimeException(e);
+//    }
   }
 
   private void setHeartbeat() {
@@ -314,7 +315,7 @@ public class ShellBolt implements IBolt {
     collector.reportError(exception);
     if (running
         || (exception instanceof Error)) { //don't exit if not running, unless it is an Error
-      System.exit(11);
+      throw new RuntimeException("Shell Bolt waw dead, please check logs");
     }
   }
 
@@ -380,8 +381,8 @@ public class ShellBolt implements IBolt {
         } catch (InterruptedException e) {
           // It's likely that Bolt is shutting down so no need to die.
           // just ignore and loop will be terminated eventually
-        } catch (Throwable t) {
-          die(t);
+        } catch (IOException e) {
+          die(e);
         }
       }
     }
@@ -412,8 +413,8 @@ public class ShellBolt implements IBolt {
         } catch (InterruptedException e) {
           // It's likely that Bolt is shutting down so no need to die.
           // just ignore and loop will be terminated eventually
-        } catch (Throwable t) {
-          die(t);
+        } catch (IOException e) {
+          die(e);
         }
       }
     }

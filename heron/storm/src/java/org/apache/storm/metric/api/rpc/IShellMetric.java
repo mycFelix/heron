@@ -25,8 +25,8 @@ import org.apache.storm.metric.api.IMetric;
  */
 public interface IShellMetric extends IMetric {
   /**
-   * @param value used to update metric, its's meaning change according implementation
-   * Object can be any json support types: String, Long, Double, Boolean, Null, List, Map
+   * used to update metric, its's meaning change according implementation
+   * @param value Object can be any json support types: String, Long, Double, Boolean, Null, List, Map
    */
   void updateMetricFromRPC(Object value);
 }

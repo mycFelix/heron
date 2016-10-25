@@ -60,7 +60,7 @@ public class JsonSerializer implements ISerializer {
   public Number connect(Map conf, TopologyContext context)
       throws IOException, NoOutputException {
     JSONObject setupInfo = new JSONObject();
-    setupInfo.put("pidDir", context.getPIDDir());
+    setupInfo.put("pidDir", System.getProperty("user.dir"));
     setupInfo.put("conf", conf);
     setupInfo.put("context", context);
     writeMessage(setupInfo);
