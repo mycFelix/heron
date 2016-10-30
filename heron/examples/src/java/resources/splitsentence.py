@@ -13,12 +13,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import storm
+import pystorm
 
-class SplitSentenceBolt(storm.BasicBolt):
+class SplitSentenceBolt(pystorm.Bolt):
     def process(self, tup):
         words = tup.values[0].split(" ")
         for word in words:
-          storm.emit([word])
+          pystorm.Bolt.emit([word])
 
 SplitSentenceBolt().run()

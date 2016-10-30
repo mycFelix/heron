@@ -87,6 +87,7 @@ public class ShellProcess implements Serializable {
       processErrorStream = subprocess.getErrorStream();
       serializer.initialize(subprocess.getOutputStream(), subprocess.getInputStream());
       this.pid = serializer.connect(conf, context);
+      LOG.info("=====>" + this.pid);
     } catch (IOException e) {
       throw new RuntimeException(
           "Error when launching multilang subprocess\n"
